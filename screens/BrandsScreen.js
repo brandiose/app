@@ -9,10 +9,11 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import { Header } from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class BrandsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -20,6 +21,11 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header
+          centerComponent={{ text: 'brandiose' }}
+          rightComponent={{ icon: 'add-circle-outline' }}
+          backgroundColor={ '#fff' }
+        />
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
@@ -37,8 +43,8 @@ export default class HomeScreen extends React.Component {
 
             <Text style={styles.getStartedText}>Get started by opening</Text>
 
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+            <View style={[styles.codeHighlightContainer, styles.brandsScreenFilename]}>
+              <MonoText style={styles.codeHighlightText}>screens/BrandsScreen.js</MonoText>
             </View>
 
             <Text style={styles.getStartedText}>
@@ -103,6 +109,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    backgroundColor: '#fff'
+  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  homeScreenFilename: {
+  brandsScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {

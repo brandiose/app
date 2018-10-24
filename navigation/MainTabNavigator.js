@@ -3,38 +3,38 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import BrandsScreen from '../screens/BrandsScreen';
+import StacksScreen from '../screens/StacksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const BrandsStack = createStackNavigator({
+  Brands: BrandsScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+BrandsStack.navigationOptions = {
+  tabBarLabel: 'My Brands',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-person${focused ? '' : '-outline'}`
+          : 'md-person'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const StacksStack = createStackNavigator({
+  Stacks: StacksScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+StacksStack.navigationOptions = {
+  tabBarLabel: 'Stacks',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-albums${focused ? '' : '-outline'}` : 'md-albums'}
     />
   ),
 };
@@ -54,7 +54,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  BrandsStack,
+  StacksStack,
   SettingsStack,
 });
