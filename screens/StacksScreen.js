@@ -5,6 +5,10 @@ import {
   Text,
   View
 } from 'react-native';
+import {
+  List,
+  ListItem
+} from 'react-native-elements';
 import { ExpoLinksView } from '@expo/samples';
 
 export default class LinksScreen extends React.Component {
@@ -15,7 +19,16 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>Stacks go here</Text>
+        <List>
+          <ListItem
+            key="1"
+            title="Contacts"
+          />
+          <ListItem
+            key="2"
+            title="Work Conference 2018"
+          />
+        </List>
       </ScrollView>
     );
   }
