@@ -1,5 +1,7 @@
 import React from 'react';
+import { WebBrowser } from 'expo';
 import {
+  Avatar,
   Image,
   Platform,
   ScrollView,
@@ -8,103 +10,156 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
-import { Header } from 'react-native-elements';
+import {
+  Header,
+  Icon
+} from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
+import LogoTitle from '../components/LogoTitle';
+import UserProfile from '../components/UserProfile';
+import { StyledText } from '../components/StyledText';
 
 export default class BrandsScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    headerTitle: <LogoTitle />,
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => { console.log("Create a brand"); }}
+      >
+        <Icon
+          name='add'
+        />
+      </TouchableOpacity>
+    )
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          centerComponent={{ text: 'brandiose' }}
-          rightComponent={{ icon: 'add-circle-outline' }}
-          backgroundColor={ '#fff' }
-        />
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
+          <View style={styles.getStartedContainer}>
+            <UserProfile
+              name="Christine Duncan"
+              description="Instagram fashionista and artist. Day-time HR rep @ tech company. Model, blogger, photographer in the evening. 👩🏾 💪🏾 💻 📷"
+              picture="https://images.pexels.com/photos/935973/pexels-photo-935973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              brands="2"
+              followers="398"
+              following="509"
             />
           </View>
-
           <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.brandsScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/BrandsScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app did automatically reloaded.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
+            <Text>Hello brandiose</Text>
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
+//   static navigationOptions = {
+//     // header: null,
+//     title: "brandiose"
+//   };
+//
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         {/*
+//         <Header
+//           centerComponent={{ text: 'brandiose' }}
+//           rightComponent={{ icon: 'add-circle-outline' }}
+//           backgroundColor={ '#fff' }
+//         />
+//         */}
+//         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+//           <View style={styles.welcomeContainer}>
+//             <Image
+//               source={
+//                 __DEV__
+//                   ? require('../assets/images/robot-dev.png')
+//                   : require('../assets/images/robot-prod.png')
+//               }
+//               style={styles.welcomeImage}
+//             />
+//           </View>
+//
+//           <View style={styles.getStartedContainer}>
+//             {this._maybeRenderDevelopmentModeWarning()}
+//
+//             <Text style={styles.getStartedText}>Get started by opening</Text>
+//
+//             <View style={[styles.codeHighlightContainer, styles.brandsScreenFilename]}>
+//               <MonoText style={styles.codeHighlightText}>screens/BrandsScreen.js</MonoText>
+//             </View>
+//
+//             <Text style={styles.getStartedText}>
+//               Change this text and your app did automatically reloaded.
+//             </Text>
+//           </View>
+//
+//           <View style={styles.helpContainer}>
+//             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+//               <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+//             </TouchableOpacity>
+//           </View>
+//         </ScrollView>
+//
+//         <View style={styles.tabBarInfoContainer}>
+//           <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+//
+//           <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+//             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+//           </View>
+//         </View>
+//       </View>
+//     );
+//   }
+//
+//   _maybeRenderDevelopmentModeWarning() {
+//     if (__DEV__) {
+//       const learnMoreButton = (
+//         <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
+//           Learn more
+//         </Text>
+//       );
+//
+//       return (
+//         <Text style={styles.developmentModeText}>
+//           Development mode is enabled, your app will be slower but you can use useful development
+//           tools. {learnMoreButton}
+//         </Text>
+//       );
+//     } else {
+//       return (
+//         <Text style={styles.developmentModeText}>
+//           You are not in development mode, your app will run at full speed.
+//         </Text>
+//       );
+//     }
+//   }
+//
+//   _handleLearnMorePress = () => {
+//     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+//   };
+//
+//   _handleHelpPress = () => {
+//     WebBrowser.openBrowserAsync(
+//       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+//     );
+//   };
 }
-
+//
 const styles = StyleSheet.create({
+  logoImage: {
+    width: 110,
+    height: 40
+  },
+  addIcon: {
+    borderWidth: 5,
+    borderColor: '#000',
+    borderRadius: 2
+  },
+// });
+// const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -120,7 +175,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    // paddingTop: 30,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -135,8 +190,8 @@ const styles = StyleSheet.create({
     marginLeft: -10,
   },
   getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
+    // alignItems: 'center',
+    // marginHorizontal: 50,
   },
   brandsScreenFilename: {
     marginVertical: 7,

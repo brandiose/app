@@ -5,7 +5,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import BrandsScreen from '../screens/BrandsScreen';
 import StacksScreen from '../screens/StacksScreen';
+import SearchScreen from '../screens/SearchScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 
 const BrandsStack = createStackNavigator({
   Brands: BrandsScreen,
@@ -39,6 +41,34 @@ StacksStack.navigationOptions = {
   ),
 };
 
+const SearchStack = createStackNavigator({
+  Search: SearchScreen,
+});
+
+SearchStack.navigationOptions = {
+  tabBarLabel: 'Search',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
+    />
+  ),
+};
+
+const NotificationsStack = createStackNavigator({
+  Notifications: NotificationsScreen,
+});
+
+NotificationsStack.navigationOptions = {
+  tabBarLabel: 'Notifications',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-notifications${focused ? '' : '-outline'}` : 'md-notifications'}
+    />
+  ),
+};
+
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
 });
@@ -56,5 +86,7 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   BrandsStack,
   StacksStack,
+  SearchStack,
+  NotificationsStack,
   SettingsStack,
 });
