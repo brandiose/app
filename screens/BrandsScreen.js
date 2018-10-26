@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 import {
   Header,
-  Icon
+  Icon,
+  List,
+  ListItem
 } from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
@@ -48,8 +50,33 @@ export default class BrandsScreen extends React.Component {
               following="509"
             />
           </View>
-          <View style={styles.getStartedContainer}>
-            <Text>Hello brandiose</Text>
+          <View style={styles.container}>
+            <List>
+              <ListItem
+                roundAvatar
+                avatar={{uri:"https://images.pexels.com/photos/935973/pexels-photo-935973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}
+                key="1"
+                title="Christine Duncan"
+                subtitle="Personal Brand"
+                onPress={() => { console.log("View Brand 1"); }}
+              />
+              <ListItem
+                roundAvatar
+                avatar={{uri:"https://images.pexels.com/photos/1065704/pexels-photo-1065704.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}
+                key="2"
+                title="Christine Duncan"
+                subtitle="HR Rep @ Google"
+                onPress={() => { console.log("View Brand 2"); }}
+              />
+              <ListItem
+                roundAvatar
+                avatar={{uri:"https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}
+                key="3"
+                title="Christine"
+                subtitle="Model+Blogger @ PinkUmbrella"
+                onPress={() => { console.log("View Brand 3"); }}
+              />
+            </List>
           </View>
         </ScrollView>
       </View>
