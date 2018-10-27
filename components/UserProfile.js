@@ -51,7 +51,7 @@ export default class UserProfile extends React.Component {
             </View>
             <View style={styles.containerRow}>
               <View style={styles.editLinkContainer}>
-                <TouchableOpacity onPress={() => { console.log("Edit Profile"); }}>
+                <TouchableOpacity onPress={ this.props.editProfile }>
                   <Text style={styles.editLink}>Edit Profile...</Text>
                 </TouchableOpacity>
               </View>

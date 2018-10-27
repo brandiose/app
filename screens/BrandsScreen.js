@@ -11,11 +11,13 @@ import {
   View,
 } from 'react-native';
 import {
+  Button,
   Header,
   Icon,
   List,
   ListItem
 } from 'react-native-elements';
+import SlidingUpPanel from 'rn-sliding-up-panel';
 
 import { MonoText } from '../components/StyledText';
 import LogoTitle from '../components/LogoTitle';
@@ -36,6 +38,13 @@ export default class BrandsScreen extends React.Component {
     )
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -48,6 +57,7 @@ export default class BrandsScreen extends React.Component {
               brands="2"
               followers="398"
               following="509"
+              editProfile={() => this.setState({visible: true})}
             />
           </View>
           <View style={styles.container}>
@@ -79,6 +89,16 @@ export default class BrandsScreen extends React.Component {
             </List>
           </View>
         </ScrollView>
+        <SlidingUpPanel
+          visible={this.state.visible}
+          onRequestClose={() => this.setState({visible: false})}>
+          <View style={styles.container}>
+            <Text>Edit Profile</Text>
+            <TouchableOpacity>
+              <Button title='Hide' onPress={() => this.setState({visible: false})} />
+            </TouchableOpacity>
+          </View>
+        </SlidingUpPanel>
       </View>
     );
   }
