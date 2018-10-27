@@ -5,7 +5,6 @@ import {
 } from 'react-native-elements';
 import {
   StyleSheet,
-  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -51,9 +50,12 @@ export default class UserProfile extends React.Component {
             </View>
             <View style={styles.containerRow}>
               <View style={styles.editLinkContainer}>
-                <TouchableOpacity onPress={ this.props.editProfile }>
-                  <Text style={styles.editLink}>Edit Profile...</Text>
-                </TouchableOpacity>
+                <Text
+                  style={styles.editLink}
+                 onPress={ this.props.editProfile }
+                >
+                  Edit Profile...
+                </Text>
               </View>
             </View>
           </View>

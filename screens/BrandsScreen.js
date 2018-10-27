@@ -7,7 +7,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {
@@ -28,13 +27,10 @@ export default class BrandsScreen extends React.Component {
   static navigationOptions = {
     headerTitle: <LogoTitle />,
     headerRight: (
-      <TouchableOpacity
+      <Icon
+        name='add'
         onPress={() => { console.log("Create a brand"); }}
-      >
-        <Icon
-          name='add'
-        />
-      </TouchableOpacity>
+      />
     )
   };
 
@@ -94,9 +90,7 @@ export default class BrandsScreen extends React.Component {
           onRequestClose={() => this.setState({visible: false})}>
           <View style={styles.container}>
             <Text>Edit Profile</Text>
-            <TouchableOpacity>
-              <Button title='Hide' onPress={() => this.setState({visible: false})} />
-            </TouchableOpacity>
+            <Button title='Hide' onPress={() => this.setState({visible: false})} />
           </View>
         </SlidingUpPanel>
       </View>
