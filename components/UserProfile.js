@@ -28,7 +28,7 @@ export default class UserProfile extends React.Component {
           <View style={styles.profileStatsContainer}>
             <View style={styles.profileStatsValueRow}>
               <View style={styles.profileStatsValueCol}>
-                <Text style={styles.profileStatsValue}>{ this.props.brands }</Text>
+                <Text style={styles.profileStatsValue}>{ this.props.brands ? this.props.brands : 0 }</Text>
               </View>
               <View style={styles.profileStatsValueCol}>
                 <Text style={styles.profileStatsValue}>{ this.props.followers }</Text>
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     fontSize: 12,
     fontWeight: '600',
-    color: '#2e78b7',
+    color: '#646884',
     paddingVertical: 10,
     marginLeft: 20
   },

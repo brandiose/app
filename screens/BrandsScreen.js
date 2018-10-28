@@ -20,6 +20,7 @@ import {
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import Drawer from 'react-native-drawer';
 
+import Utils from '../constants/Utils';
 import { MonoText } from '../components/StyledText';
 import LogoTitle from '../components/LogoTitle';
 import UserProfile from '../components/UserProfile';
@@ -42,12 +43,59 @@ export default class BrandsScreen extends React.Component {
     super(props);
     this.state = {
       visible: false,
-      sidePanelOpen: false
+      sidePanelOpen: false,
+      userInfo: {},
+      userBrands: []
     };
   }
 
   componentDidMount() {
     this.props.navigation.setParams({ toggleSidePanel: () => { this._toggleSidePanel() }});
+    this._getUserData();
+  }
+
+  _getUserData() {
+    let userId = '5bd50719d0d0924a23b2126f';
+
+    // Get UserInfo
+    fetch(
+      Utils.api + 'user/' + userId,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      }
+    ).then((response) => response.json())
+    .then((response) => {
+      console.log("_getUserData.userInfo", response);
+      this.setState({
+        userInfo: response.body[0]
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+    // Get UserBrands
+    fetch(
+      Utils.api + 'user/' + userId + '/brand',
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      }
+    ).then((response) => response.json())
+    .then((response) => {
+      console.log("_getUserData.userBrands", response);
+      this.setState({
+        userBrands: response.body
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   _toggleSidePanel() {
@@ -57,11 +105,12 @@ export default class BrandsScreen extends React.Component {
   }
 
   render() {
+    console.log("BrandsScreen.render", this.state.userInfo);
     return (
       <Drawer
         open={this.state.sidePanelOpen}
         type="static"
-        content={<Text>Drawer</Text>}
+        content={<Text>Add new Brand</Text>}
         tapToClose={true}
         // openDrawerOffset={0.2} // 20% gap on the right side of drawer
         panCloseMask={0.2}
@@ -70,15 +119,15 @@ export default class BrandsScreen extends React.Component {
         tweenHandler={(ratio) => ({
           main: { opacity:(2-ratio)/2 }
         })}
-        >
+      >
         <View style={styles.container}>
           <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <View style={styles.getStartedContainer}>
               <UserProfile
-                name="Christine Duncan"
-                description="Instagram fashionista and artist. Day-time HR rep @ tech company. Model, blogger, photographer in the evening. 👩🏾 💪🏾 💻 📷"
-                picture="https://images.pexels.com/photos/935973/pexels-photo-935973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                brands="2"
+                name={ this.state.userInfo.name }
+                description={ this.state.userInfo.description }
+                picture={ this.state.userInfo.picture }
+                brands={ this.state.userBrands.length }
                 followers="398"
                 following="509"
                 editProfile={() => this.setState({visible: true})}
@@ -86,30 +135,18 @@ export default class BrandsScreen extends React.Component {
             </View>
             <View style={styles.container}>
               <List>
-                <ListItem
-                  roundAvatar
-                  avatar={{uri:"https://images.pexels.com/photos/935973/pexels-photo-935973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}
-                  key="1"
-                  title="Christine Duncan"
-                  subtitle="Personal Brand"
-                  onPress={() => { console.log("View Brand 1"); }}
-                />
-                <ListItem
-                  roundAvatar
-                  avatar={{uri:"https://images.pexels.com/photos/1065704/pexels-photo-1065704.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}
-                  key="2"
-                  title="Christine Duncan"
-                  subtitle="HR Rep @ Google"
-                  onPress={() => { console.log("View Brand 2"); }}
-                />
-                <ListItem
-                  roundAvatar
-                  avatar={{uri:"https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}
-                  key="3"
-                  title="Christine"
-                  subtitle="Model+Blogger @ PinkUmbrella"
-                  onPress={() => { console.log("View Brand 3"); }}
-                />
+                {this.state.userBrands !== undefined ?
+                  this.state.userBrands.map((e, i) => (
+                    <ListItem
+                      roundAvatar
+                      avatar={{uri:e.picture}}
+                      key={i}
+                      title={e.name}
+                      subtitle={e.role === "Personal Brand" ? e.role : e.role + " @ " + e.org}
+                      onPress={() => { console.log("View Brand " + e["_id"]); }}
+                    />
+                  )) : null
+                }
               </List>
             </View>
           </ScrollView>

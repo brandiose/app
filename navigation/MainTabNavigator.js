@@ -1,6 +1,11 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import {
+  Platform,
+  Text
+} from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+
+import Colors from '../constants/Colors';
 
 import TabBarIcon from '../components/TabBarIcon';
 import BrandsScreen from '../screens/BrandsScreen';
@@ -25,6 +30,9 @@ BrandsStack.navigationOptions = {
       }
     />
   ),
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected
+  }
 };
 
 const StacksStack = createStackNavigator({
@@ -39,6 +47,9 @@ StacksStack.navigationOptions = {
       name={Platform.OS === 'ios' ? `ios-albums${focused ? '' : '-outline'}` : 'md-albums'}
     />
   ),
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected
+  }
 };
 
 const SearchStack = createStackNavigator({
@@ -53,6 +64,9 @@ SearchStack.navigationOptions = {
       name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
     />
   ),
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected
+  }
 };
 
 const NotificationsStack = createStackNavigator({
@@ -67,6 +81,9 @@ NotificationsStack.navigationOptions = {
       name={Platform.OS === 'ios' ? `ios-notifications${focused ? '' : '-outline'}` : 'md-notifications'}
     />
   ),
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected
+  }
 };
 
 const SettingsStack = createStackNavigator({
@@ -81,6 +98,9 @@ SettingsStack.navigationOptions = {
       name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
     />
   ),
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected
+  }
 };
 
 export default createBottomTabNavigator({
