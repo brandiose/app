@@ -25,6 +25,7 @@ import { MonoText } from '../components/StyledText';
 import LogoTitle from '../components/LogoTitle';
 import UserProfile from '../components/UserProfile';
 import { StyledText } from '../components/StyledText';
+import Brand from '../components/Brand';
 
 export default class BrandsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -33,7 +34,7 @@ export default class BrandsScreen extends React.Component {
       headerRight: (
         <Icon
           name='add'
-          onPress={navigation.getParam('toggleSidePanel')}
+          onPress={navigation.getParam('addBrand')}
         />
       )
     }
@@ -44,13 +45,18 @@ export default class BrandsScreen extends React.Component {
     this.state = {
       visible: false,
       sidePanelOpen: false,
+      sidePanelContent: '',
       userInfo: {},
-      userBrands: []
+      userBrands: [],
+      brandId: ''
     };
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ toggleSidePanel: () => { this._toggleSidePanel() }});
+    this.props.navigation.setParams({ addBrand: () => { this._addBrand() }});
+  }
+
+  componentWillMount() {
     this._getUserData();
   }
 
@@ -68,7 +74,6 @@ export default class BrandsScreen extends React.Component {
       }
     ).then((response) => response.json())
     .then((response) => {
-      console.log("_getUserData.userInfo", response);
       this.setState({
         userInfo: response.body[0]
       });
@@ -88,7 +93,6 @@ export default class BrandsScreen extends React.Component {
       }
     ).then((response) => response.json())
     .then((response) => {
-      console.log("_getUserData.userBrands", response);
       this.setState({
         userBrands: response.body
       });
@@ -104,13 +108,36 @@ export default class BrandsScreen extends React.Component {
     });
   }
 
+  _addBrand() {
+    this.setState({
+      sidePanelContent: 'newbrand'
+    }, () => {
+      this._toggleSidePanel();
+    });
+  }
+
+  _showBrand(brandId) {
+    this.setState({
+      brandId: brandId,
+      sidePanelContent: 'brand'
+    }, () => {
+      this._toggleSidePanel();
+    });
+  }
+
   render() {
-    console.log("BrandsScreen.render", this.state.userInfo);
     return (
       <Drawer
         open={this.state.sidePanelOpen}
         type="static"
-        content={<Text>Add new Brand</Text>}
+        content={
+          this.state.sidePanelContent === 'brand' &&
+          this.state.brandId.length > 0 ?
+            <Brand brandid={this.state.brandId} />
+          : this.state.sidePanelContent === 'newbrand' ?
+            <Text>Add new Brand</Text>
+          : null
+        }
         tapToClose={true}
         // openDrawerOffset={0.2} // 20% gap on the right side of drawer
         panCloseMask={0.2}
@@ -143,7 +170,7 @@ export default class BrandsScreen extends React.Component {
                       key={i}
                       title={e.name}
                       subtitle={e.role === "Personal Brand" ? e.role : e.role + " @ " + e.org}
-                      onPress={() => { console.log("View Brand " + e["_id"]); }}
+                      onPress={() => { this._showBrand(e["_id"]) }}
                     />
                   )) : null
                 }
