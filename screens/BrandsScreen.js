@@ -21,6 +21,7 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
 import Drawer from 'react-native-drawer';
 
 import Utils from '../constants/Utils';
+import Colors from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
 import LogoTitle from '../components/LogoTitle';
 import UserProfile from '../components/UserProfile';
@@ -32,10 +33,43 @@ export default class BrandsScreen extends React.Component {
     return {
       headerTitle: <LogoTitle />,
       headerRight: (
-        <Icon
-          name='add'
-          onPress={navigation.getParam('addBrand')}
-        />
+        (!navigation.getParam('sidePanelOpen')) ?
+          <Icon
+            name='add'
+            onPress={navigation.getParam('addBrand')}
+          /> : null
+      ),
+      headerLeft: (
+        (navigation.getParam('sidePanelOpen')) ?
+          <View styles={{
+            flex: 1,
+            flexDirection: 'row',
+            borderWidth: 1,
+            borderColor: '#f00'
+          }}>
+            <View styles={{
+              borderWidth: 1,
+              borderColor: '#ff0'
+            }}>
+              <Icon
+                name='arrow-back'
+                type='ionicons'
+              />
+            </View>
+            <View styles={{
+              borderWidth: 1,
+              borderColor: '#00f'
+            }}>
+              <Text
+                style={{
+                  color: Colors.tabIconSelected
+                }}
+                onPress={navigation.getParam('toggleSidePanel')}
+              >
+                My Brands
+              </Text>
+            </View>
+          </View> : null
       )
     }
   };
@@ -53,7 +87,11 @@ export default class BrandsScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ addBrand: () => { this._addBrand() }});
+    this.props.navigation.setParams({
+      addBrand: () => { this._addBrand() },
+      toggleSidePanel: () => { this._toggleSidePanel() },
+      sidePanelOpen: this.state.sidePanelOpen
+    });
   }
 
   componentWillMount() {
@@ -105,6 +143,10 @@ export default class BrandsScreen extends React.Component {
   _toggleSidePanel() {
     this.setState({
       sidePanelOpen: !this.state.sidePanelOpen
+    }, () => {
+      this.props.navigation.setParams({
+        sidePanelOpen: this.state.sidePanelOpen
+      });
     });
   }
 
